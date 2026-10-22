@@ -323,7 +323,7 @@ export default function PermitsCertificatesPage({ onClose, createPrefill }: Prop
 
           {/* Toolbar */}
           <div className="flex items-center gap-[10px] mb-[12px] flex-wrap">
-            {/* Advance Filters */}
+            {/* Advanced Filters */}
             <button
               onClick={() => setAfOpen(o => !o)}
               className={`h-[48px] px-[14px] flex items-center gap-[8px] rounded-[4px] border text-[16px] transition-colors ${
@@ -331,7 +331,7 @@ export default function PermitsCertificatesPage({ onClose, createPrefill }: Prop
               }`}
               style={{ fontFamily: font }}
             >
-              Advance Filters
+              Advanced Filters
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M3 5h14M5 10h10M7 15h6" strokeLinecap="round" />
               </svg>

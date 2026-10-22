@@ -1302,7 +1302,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
   const [invPayPage,      setInvPayPage]      = useState<{ invoiceNo: string; rows: typeof PAYMENT_ROWS } | null>(null);
   /* The Payments listing shows the one transaction behind a row, also as a page. */
   const [payDetailsPage,  setPayDetailsPage]  = useState<TxRow | null>(null);
-  /* The Advance Filters' range and the "Transaction Date As On" badge are two separate
+  /* The Advanced Filters' range and the "Transaction Date As On" badge are two separate
      controls — changing one leaves the other where the user put it. */
   const [payFromDate, setPayFromDate] = useState('');
   const [payToDate,   setPayToDate]   = useState('');
@@ -1566,7 +1566,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
   /* The picked location gives the invoice numbers their prefix. */
   const invPrefix = LOCATIONS.find(l => l.name === fLocation)?.prefix ?? '';
 
-  /* Invoices filtering — Invoice Type/Number (toolbar), Advance Filters fields (incl. date
+  /* Invoices filtering — Invoice Type/Number (toolbar), Advanced Filters fields (incl. date
      range on the invoice's generation date), multi-select Status (defaults to Unpaid on
      first load), and the due-date bucket set from the Overview tab's summary cards. */
   const filteredInv = INVOICE_ROWS.filter(row => {
@@ -2438,7 +2438,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
     <div className="flex-1 flex flex-col min-w-0">
       {/* Row 1 — Toolbar. The padding keeps the selects' floating labels from being clipped. */}
       <div className="flex items-center gap-[10px] mb-[10px] pt-[10px]">
-        {/* Advance Filters */}
+        {/* Advanced Filters */}
         <button
           onClick={() => setShowFilters(f => !f)}
           className={`h-[48px] px-[14px] flex items-center gap-[8px] rounded-[4px] border text-[16px] transition-colors flex-shrink-0 ${
@@ -2446,7 +2446,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
           }`}
           style={{ fontFamily: font }}
         >
-          Advance Filters
+          Advanced Filters
           <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M2 5h16M5 10h10M8 15h4" strokeLinecap="round" />
           </svg>
@@ -2554,8 +2554,8 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
           style={{ boxShadow: '4px 4px 30px 0px rgba(0,0,0,0.12)' }}>
           {/* Titled header with its close, as the Refund & Claims panel carries */}
           <div className="flex items-center justify-between mb-[20px]">
-            <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advance Filters</span>
-            <button onClick={() => setShowFilters(false)} aria-label="Close advance filters"
+            <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advanced Filters</span>
+            <button onClick={() => setShowFilters(false)} aria-label="Close advanced filters"
               className="size-[28px] flex items-center justify-center rounded hover:bg-[#f0f4ff] transition-colors">
               <svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="#697498" strokeWidth="1.8" strokeLinecap="round">
                 <path d="M2 2l14 14M16 2L2 16" />
@@ -2777,7 +2777,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
     <div className="flex-1 flex flex-col min-w-0">
       {/* Row 1 — Toolbar */}
       <div className="flex items-center gap-[10px] mb-[10px]">
-        {/* Advance Filters */}
+        {/* Advanced Filters */}
         <button
           onClick={() => setPayAdvFilters(f => !f)}
           className={`h-[48px] px-[14px] flex items-center gap-[8px] rounded-[4px] border text-[16px] transition-colors flex-shrink-0 ${
@@ -2785,7 +2785,7 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
           }`}
           style={{ fontFamily: font }}
         >
-          Advance Filters
+          Advanced Filters
           <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M2 5h16M5 10h10M8 15h4" strokeLinecap="round" />
           </svg>
@@ -2887,14 +2887,14 @@ export default function BillPaymentPage({ onBack }: { onBack: () => void }) {
         </div>
       </div>
 
-      {/* Advance Filters panel */}
+      {/* Advanced Filters panel */}
       {payAdvFilters && (
         <div className="bg-white rounded-[8px] p-[20px] mb-[10px]"
           style={{ boxShadow: '4px 4px 30px 0px rgba(0,0,0,0.12)' }}>
           {/* Titled header with its close, as the Refund & Claims panel carries */}
           <div className="flex items-center justify-between mb-[20px]">
-            <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advance Filters</span>
-            <button onClick={() => setPayAdvFilters(false)} aria-label="Close advance filters"
+            <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advanced Filters</span>
+            <button onClick={() => setPayAdvFilters(false)} aria-label="Close advanced filters"
               className="size-[28px] flex items-center justify-center rounded hover:bg-[#f0f4ff] transition-colors">
               <svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="#697498" strokeWidth="1.8" strokeLinecap="round">
                 <path d="M2 2l14 14M16 2L2 16" />

@@ -218,7 +218,7 @@ export default function DiscrepancyFeedbackListingPage({ onBack, sidebar }: Prop
           {sidebar}
           <div className="flex-1 flex flex-col overflow-hidden min-w-0">
           <div className="flex-1 overflow-y-auto pb-4">
-        {/* Toolbar row 1 — Advance Filters, plain rotation-number search, Need Help, primary action */}
+        {/* Toolbar row 1 — Advanced Filters, plain rotation-number search, Need Help, primary action */}
         <div className="flex items-center gap-[10px] mb-[16px] flex-wrap">
           <button
             onClick={() => setAfOpen(o => !o)}
@@ -227,7 +227,7 @@ export default function DiscrepancyFeedbackListingPage({ onBack, sidebar }: Prop
             }`}
             style={{ fontFamily: font }}
           >
-            Advance Filters
+            Advanced Filters
             <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 5h14M5 10h10M7 15h6" strokeLinecap="round" /></svg>
           </button>
 
@@ -259,7 +259,7 @@ export default function DiscrepancyFeedbackListingPage({ onBack, sidebar }: Prop
           </button>
         </div>
 
-        {/* Advance filters panel */}
+        {/* Advanced filters panel */}
         {afOpen && (
           <div className="relative bg-white rounded-[8px] border border-[#d5ddfb] p-5 mb-[12px]" style={{ boxShadow: '4px 4px 30px 0px rgba(0,0,0,0.12)' }}>
             <div className="flex items-center gap-[8px] mb-[16px]">

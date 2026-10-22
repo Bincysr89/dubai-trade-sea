@@ -735,7 +735,7 @@ export function StatusAsOnBadge({
   toValue: string;   // 'YYYY-MM-DD'
   onApply: (from: string, to: string) => void;
   label?: string;
-  /** Greyed out and inert — used while the Advance Filters panel owns the filtering. */
+  /** Greyed out and inert — used while the Advanced Filters panel owns the filtering. */
   disabled?: boolean;
 }) {
   const [open, setOpen] = useState(false);

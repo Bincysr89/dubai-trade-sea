@@ -316,7 +316,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileTypeOpen, setMobileTypeOpen] = useState(false);
 
-  // "Date Type" dropdown inside the Refund & Claims advance filters.
+  // "Date Type" dropdown inside the Refund & Claims advanced filters.
   const [rcReqDateOpen, setRcReqDateOpen] = useState(false);
   const rcReqDateRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -477,7 +477,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
   };
   // The toolbar status dropdown is named for what it filters in each module.
   const isEPayView = activeMenu === 'E-Payment' || activeTab === 'epay';
-  /* Advance Filters registry — the fields each module renders, in render order, with the
+  /* Advanced Filters registry — the fields each module renders, in render order, with the
      label shown on the applied-filter tags. Keys match the filterValues entries. */
   const FILTER_LABELS: Record<string, string> = {
     ackDeclType: 'Declaration Type', ackStatus: 'Acknowledgement Status', ackPartyType: 'Party Type',
@@ -510,7 +510,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
       ? ['ctCargoChannel', 'ctCarrierReg', 'ctTransferType', 'ctStatus', 'ctTransferee', 'ctTransferor', 'ctFromDate', 'ctToDate', 'ctBrokerCode']
       : ['cargoChannel', 'regimeType', 'declType', 'permit', 'declStatus', 'fromDate', 'toDate', 'carrierReg', 'customerType', 'customerCode'];
 
-  /* Advance Filters owns the filtering while its panel is open, and keeps owning it for as
+  /* Advanced Filters owns the filtering while its panel is open, and keeps owning it for as
      long as filters stay applied — so the basic search, the status dropdown and the date
      pill stay greyed and inert after the panel is closed, until Reset clears the tags. */
   const filtersActive = showFilters || appliedFilters.length > 0;
@@ -1830,7 +1830,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
 
         {/* Controls row */}
         <div className="flex items-center mb-[12px] gap-[12px] flex-wrap">
-          {/* Left: advance filters button — hidden on ePayment tab and ePayments sidebar */}
+          {/* Left: advanced filters button — hidden on ePayment tab and ePayments sidebar */}
           {activeTab !== 'epay' && activeMenu !== 'E-Payment' && (
             <button
               onClick={() => setShowFilters(!showFilters)}
@@ -1841,7 +1841,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
               }`}
               style={{ fontFamily: "'Dubai', sans-serif" }}
             >
-              <span className="hidden sm:inline">Advance Filters</span>
+              <span className="hidden sm:inline">Advanced Filters</span>
               <svg viewBox="0 0 24 24" className="size-[20px]" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M3 6h18M7 12h10M11 18h2" strokeLinecap="round" />
               </svg>
@@ -2075,7 +2075,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
           </div>
         </div>
 
-        {/* Mobile search panel — opens below the toolbar, same treatment as Advance Filters */}
+        {/* Mobile search panel — opens below the toolbar, same treatment as Advanced Filters */}
         {mobileSearchOpen && (
           <div
             className="md:hidden bg-white rounded-[8px] mb-[12px] p-[20px]"
@@ -2175,7 +2175,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
           />
         )}
 
-        {/* Advance Filters Panel */}
+        {/* Advanced Filters Panel */}
         {showFilters && (
           <div
             className="bg-white rounded-[8px] mb-[12px] p-[20px]"
@@ -2187,7 +2187,7 @@ export default function DeclarationListPage({ onClose, onServiceCatalogue, autoS
                 className="text-[16px] font-semibold text-[#0e1b3d]"
                 style={{ fontFamily: "'Dubai', sans-serif" }}
               >
-                Advance Filters
+                Advanced Filters
               </span>
               <button
                 onClick={() => setShowFilters(false)}

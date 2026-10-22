@@ -76,7 +76,7 @@ type ListingConfig = {
   primaryLabel: string;
   refKey: string;                 // column rendered as the blue link / used as row id
   detailSections: SectionDef[];   // field grouping for the "View Request" page
-  advancedFilterKeys?: string[];  // which column keys the Advance Filters panel shows (defaults to columns[1..4])
+  advancedFilterKeys?: string[];  // which column keys the Advanced Filters panel shows (defaults to columns[1..4])
   flyoutItems?: string[];         // Action-column flyout menu labels (defaults to View/Amend/Cancel Request)
   lockedStatusStyles?: Record<string, Record<string, { bg: string; color: string }>>; // per-locked-column badge color map (defaults to shared STATUS_STYLE)
   searchKeyLabels?: Record<string, string>; // label overrides for search-type dropdown keys that aren't visible columns
@@ -425,7 +425,7 @@ function FilterMultiSelect({ label, selected, options, onChange }: { label: stri
 
 const SEM_CARGO_TYPE_OPTIONS = ['FCL CONTAINER', 'LCL CONTAINER', 'GENERAL CARGO (BREAK BULK)', 'BULK LIQUID', 'BULK SOLID', 'RO-RO UNIT', 'EMPTY CONTAINER'];
 
-/* Advance Filters — column keys that render as a dropdown instead of a free-text field, matching the reference's field widgets. */
+/* Advanced Filters — column keys that render as a dropdown instead of a free-text field, matching the reference's field widgets. */
 const ADVANCED_FILTER_DROPDOWNS: Record<string, string[]> = {
   arrDep: ['Arrival', 'Departure'],
   aircraftType: ['Passenger', 'Cargo only', 'Combi', 'Surface Flights', 'Truck'],
@@ -936,14 +936,14 @@ export default function CargoInformationPage({ onBack, onHome }: Props) {
                 {SIDEBAR_ITEMS.find(s => s.key === activeMenu)?.label}
               </h1>
 
-              {/* Row 1 — Advance Filters, search, status …… Need Help, primary action */}
+              {/* Row 1 — Advanced Filters, search, status …… Need Help, primary action */}
               <div className="flex items-center gap-[12px] mb-[12px] flex-wrap flex-shrink-0">
                 <button
                   onClick={() => setShowFilters(o => !o)}
                   className={`flex items-center gap-[8px] h-[48px] px-[12px] sm:px-[16px] py-[12px] rounded-[4px] border text-[16px] transition-colors flex-shrink-0 ${showFilters ? 'bg-[#e2ebf9] border-[#1360d2] text-[#1360d2]' : 'bg-white border-[#d4dcfa] text-[#000000]'}`}
                   style={{ fontFamily: font }}
                 >
-                  <span className="hidden sm:inline">Advance Filters</span>
+                  <span className="hidden sm:inline">Advanced Filters</span>
                   <svg viewBox="0 0 24 24" className="size-[20px]" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 6h18M7 12h10M11 18h2" strokeLinecap="round" />
                   </svg>
@@ -1094,11 +1094,11 @@ export default function CargoInformationPage({ onBack, onHome }: Props) {
                 </div>
               </div>
 
-              {/* Advance Filters panel */}
+              {/* Advanced Filters panel */}
               {showFilters && (
                 <div className="bg-white rounded-[8px] mb-[12px] p-[20px] flex-shrink-0" style={{ boxShadow: '4px 4px 30px 0px rgba(0,0,0,0.12)' }}>
                   <div className="flex items-center justify-between mb-[20px]">
-                    <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advance Filters</span>
+                    <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advanced Filters</span>
                     <button onClick={() => setShowFilters(false)} className="size-[28px] flex items-center justify-center rounded-full hover:bg-[#f0f4ff] transition-colors text-[#697498] hover:text-[#0e1b3d]">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" /></svg>
                     </button>

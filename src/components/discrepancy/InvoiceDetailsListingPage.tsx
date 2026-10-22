@@ -62,7 +62,7 @@ export default function InvoiceDetailsListingPage({ onBack, sidebar }: Props) {
   const [dfDateType, setDfDateType] = useState('');
   const [dfFromDate, setDfFromDate] = useState(DEFAULT_FROM);
   const [dfToDate, setDfToDate] = useState(DEFAULT_TO);
-  // Applied advance filters
+  // Applied advanced filters
   const [applied, setApplied] = useState<AppliedFilters>({ invoiceType: '', status: '', dateType: '', fromDate: DEFAULT_FROM, toDate: DEFAULT_TO });
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function InvoiceDetailsListingPage({ onBack, sidebar }: Props) {
               <button onClick={() => setAfOpen(o => !o)}
                 className={`flex items-center gap-[8px] h-[48px] px-[16px] rounded-[4px] border text-[16px] transition-colors flex-shrink-0 ${afOpen ? 'bg-[#e2ebf9] border-[#1360d2] text-[#1360d2]' : 'bg-white border-[#d4dcfa] text-[#000]'}`}
                 style={{ fontFamily: font }}>
-                Advance Filters
+                Advanced Filters
                 <svg viewBox="0 0 24 24" className="size-[20px]" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M7 12h10M11 18h2" strokeLinecap="round" /></svg>
               </button>
 
@@ -207,11 +207,11 @@ export default function InvoiceDetailsListingPage({ onBack, sidebar }: Props) {
               <StatusAsOnBadge fromValue={applied.fromDate} toValue={applied.toDate} onApply={applyBadgeDates} />
             </div>
 
-            {/* Advance filters panel */}
+            {/* Advanced filters panel */}
             {afOpen && (
               <div className="bg-white rounded-[8px] p-[20px] flex-shrink-0" style={{ boxShadow: '4px 4px 30px 0px rgba(0,0,0,0.12)' }}>
                 <div className="flex items-center justify-between mb-[20px]">
-                  <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advance Filters</span>
+                  <span className="text-[16px] font-semibold text-[#0e1b3d]" style={{ fontFamily: font }}>Advanced Filters</span>
                   <button onClick={() => setAfOpen(false)} className="size-[28px] flex items-center justify-center rounded-full hover:bg-[#f0f4ff] transition-colors text-[#697498] hover:text-[#0e1b3d]">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" /></svg>
                   </button>

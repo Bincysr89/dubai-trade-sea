@@ -141,7 +141,7 @@ function ListStep({ config, onClose, onStart }: { config: PermitServiceConfig; o
         {showFilters && (
           <Card className="p-[20px] mb-[16px]">
             <div className="flex items-center justify-between mb-[16px]">
-              <p className="text-[16px] text-[#0e1b3d]" style={{ fontWeight: 600 }}>Advance Filters</p>
+              <p className="text-[16px] text-[#0e1b3d]" style={{ fontWeight: 600 }}>Advanced Filters</p>
               <button onClick={() => setShowFilters(false)} className="size-[26px] rounded-full border border-[#d5ddfb] flex items-center justify-center text-[#8f94ae] hover:text-[#0e1b3d]">
                 <svg viewBox="0 0 24 24" className="size-[13px]" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M18 6L6 18M6 6l12 12" /></svg>
               </button>
