@@ -5,7 +5,7 @@ const uaePassLogoSrc = new URL('../assets/uaepass-logo.svg', import.meta.url).hr
 import loginBgSrc from '../assets/login-bg.jpg';
 import { setAuthenticated } from '../auth';
 
-const REQUIRED_PASSWORD = 'IntegratedClearance';
+const REQUIRED_PASSWORD = 'DubaiCustoms';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
