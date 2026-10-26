@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useId, useRef, useState } from 'react';
 import { JourneyTable, JourneyTd, JourneyThead, font } from './DeclarationUI';
 
 const MAX_SIZE_MB = 50;
@@ -40,6 +40,10 @@ type Props = {
   initialDocs?: UploadedDocRow[];
   /** Extra content rendered inside the left card, below the document types. */
   children?: React.ReactNode;
+  /** Content rendered inside the left card above the document types (e.g. a template link and note). */
+  intro?: React.ReactNode;
+  /** Hides the authority name heading above the document types. */
+  hideAuthority?: boolean;
   /** Numbers the uploaded rows, as the cancel and suspension pages do. */
   numbered?: boolean;
 };
@@ -55,9 +59,13 @@ export default function DocumentUploadSection({
   docTypes,
   initialDocs,
   children,
+  intro,
+  hideAuthority = false,
   numbered = false,
 }: Props) {
   const [picked, setPicked] = useState<string>(docTypes[0]?.label ?? '');
+  // Unique radio group per instance, so several upload sections can share a page.
+  const groupName = `docType-${useId()}`;
   const [docs, setDocs] = useState<UploadedDocRow[]>(initialDocs ?? []);
   const [dragging, setDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +84,8 @@ export default function DocumentUploadSection({
   };
 
   const removeDoc = (id: string) => setDocs((prev) => prev.filter((d) => d.id !== id));
+  // Deleting a file always asks first, as in the Refund & Claims flow.
+  const [confirmDelete, setConfirmDelete] = useState<UploadedDocRow | null>(null);
 
   return (
     <div className="flex flex-col gap-[20px]" style={{ fontFamily: font }}>
@@ -90,8 +100,10 @@ export default function DocumentUploadSection({
             <p className="text-[16px] text-[#455174]">{description}</p>
           </div>
 
+          {intro}
+
           <div className="flex flex-col gap-[16px]">
-            <p className="text-[16px] text-[#0e1b3d]" style={{ fontWeight: 600 }}>{authority}</p>
+            {!hideAuthority && <p className="text-[16px] text-[#0e1b3d]" style={{ fontWeight: 600 }}>{authority}</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[12px] gap-y-[8px]">
               {docTypes.map((o) => {
                 const active = picked === o.label;
@@ -103,7 +115,7 @@ export default function DocumentUploadSection({
                   >
                     <input
                       type="radio"
-                      name="docType"
+                      name={groupName}
                       checked={active}
                       onChange={() => setPicked(o.label)}
                       className="size-[17px] flex-shrink-0"
@@ -220,7 +232,7 @@ export default function DocumentUploadSection({
                     <JourneyTd>
                       <span className="flex items-center gap-[16px]">
                         {!d.locked && (
-                          <button type="button" aria-label={`Delete ${d.fileName}`} onClick={() => removeDoc(d.id)}
+                          <button type="button" aria-label={`Delete ${d.fileName}`} onClick={() => setConfirmDelete(d)}
                             className="inline-flex items-center justify-center hover:opacity-70 transition-opacity" style={{ color: '#dc3545' }}>
                             <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M3 5h14M8 5V3h4v2M6 5l1 12h6l1-12M9 8v6M11 8v6" />
@@ -242,6 +254,38 @@ export default function DocumentUploadSection({
           )}
         </div>
       </div>
+
+      {confirmDelete && (
+        <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/50" onClick={() => setConfirmDelete(null)}>
+          <div onClick={e => e.stopPropagation()} role="alertdialog" aria-modal="true" aria-label="Are you sure to delete?"
+            className="bg-white rounded-[10px] flex flex-col items-center gap-[20px] px-[40px] py-[36px] max-w-[460px] mx-[16px]"
+            style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.18)', fontFamily: font }}>
+            <div className="size-[64px] rounded-full flex items-center justify-center" style={{ background: '#fff8e6' }}>
+              <svg viewBox="0 0 96 96" fill="none" width="34" height="34">
+                <circle cx="48" cy="48" r="42" fill="none" stroke="#FFC020" strokeWidth="7" />
+                <rect x="44.5" y="22" width="7" height="32" rx="3.5" fill="#FFC020" />
+                <circle cx="48" cy="68" r="4.5" fill="#FFC020" />
+              </svg>
+            </div>
+            <div className="text-center flex flex-col gap-[8px]">
+              <p className="text-[20px] text-[#0e1b3d]" style={{ fontWeight: 700 }}>Are you sure to delete?</p>
+              <p className="text-[16px] text-[#697498]" style={{ lineHeight: 1.4 }}>{confirmDelete.fileName} will be removed from the uploaded documents.</p>
+            </div>
+            <div className="flex gap-[12px]">
+              <button type="button" data-secondary-btn onClick={() => setConfirmDelete(null)}
+                className="h-[48px] px-[36px] rounded-[4px] border text-[16px] bg-white transition-colors"
+                style={{ borderColor: '#1360d2', color: '#1360d2', fontWeight: 500 }}>
+                No
+              </button>
+              <button type="button" onClick={() => { removeDoc(confirmDelete.id); setConfirmDelete(null); }}
+                className="h-[48px] px-[36px] rounded-[4px] text-[16px] text-white transition-colors"
+                style={{ background: '#1360d2', fontWeight: 500 }}>
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

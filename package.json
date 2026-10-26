@@ -1,10 +1,10 @@
 {
-  "name": "dubai-trade",
+  "name": "dubai-trade-sea",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5183 --strictPort",
+    "dev": "vite --port 5192 --strictPort",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },

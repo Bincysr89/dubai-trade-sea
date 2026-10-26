@@ -20,6 +20,7 @@ import CargoInspectionPage from './CargoInspectionPage';
 import DeclarationListPage from './DeclarationListPage';
 import CargoReconciliationPage from './discrepancy/CargoReconciliationPage';
 import CargoTrackingContainer from './cargotracking/CargoTrackingContainer';
+import DutyAccountFlow from './dutyaccount/DutyAccountFlow';
 
 type Props = { onClose: () => void };
 
@@ -93,13 +94,13 @@ const SEA_COLUMNS: { title: string; items: string[] }[] = [
   {
     title: 'Cargo Clearance',
     items: [
-      ...DCAA_SIRA_SERVICES,
-      'Integrated Clearance',
-      'Bill Payment',
-      'DC - Service Request',
-      'Request Goods Landing Certificate',
       'Request Customs Warehouse License',
       'Request Duty Account',
+      'Request Goods Landing Certificate',
+      'DC - Service Request',
+      'Bill Payment',
+      ...DCAA_SIRA_SERVICES,
+      'Integrated Clearance',
       'Cargo Inspection',
       'DC - landing Certificate', 'DC - Letter & Certificates', 'DM Permits',
       'DP World Work Permits', 'e-Certificates', 'IMDG NOC Management',
@@ -353,18 +354,13 @@ const PAGE_CONFIGS: Record<Exclude<PageKey, 'pbf' | 'dcc' | 'cargoInspection' | 
   },
 };
 
+// Only these five Sea services are highlighted and connected in this prototype
 const ITEM_PAGE_MAP: Record<string, PageKey> = {
-  'Request Goods Landing Certificate':    'glc',
-  'Bill Payment':                         'pbf',
-  'Join Accreditation Program':           'jap',
   'Request Customs Warehouse License':    'cwl',
-  'Request Customs Transactions Report':  'ctr',
   'Request Duty Account':                 'rda',
+  'Request Goods Landing Certificate':    'glc',
   'DC - Service Request':                 'dcc',
-  'Cargo Inspection':                     'cargoInspection',
-  'Integrated Clearance':                 'integratedClearance',
-  'Cargo Reconciliation':                 'cargoReconciliation',
-  'Cargo Tracking':                       'tracking',
+  'Bill Payment':                         'pbf',
 };
 /* ── Generic Form Configs ────────────────────────────────────────────────── */
 const CTR_CONFIG: GenericServiceConfig = {
@@ -407,7 +403,6 @@ export default function SeaDetailModal({ onClose }: Props) {
   const [showCtrForm, setShowCtrForm] = useState(false);
   const [showCwlForm, setShowCwlForm] = useState(false);
   const [showJapForm, setShowJapForm] = useState(false);
-  const [showRdaForm, setShowRdaForm] = useState(false);
   const [cwlViewRow, setCwlViewRow]   = useState<RowData | null>(null);
   const [cwlPayRow, setCwlPayRow]     = useState<RowData | null>(null);
 
@@ -542,20 +537,7 @@ export default function SeaDetailModal({ onClose }: Props) {
     );
   }
   if (activePage === 'rda') {
-    if (showRdaForm) {
-      return <GenericServiceFormPage
-        config={{ serviceName: 'Request Duty Account', serviceDescription: 'Apply to open or manage a duty account with Dubai Customs.', charges: '0.00', requirements: 'Trade license, Emirates ID, Customs file number', breadcrumbLabel: 'Manage Accounts', serviceTypes: [{ name: 'New Account', fees: '0.00', description: 'Open a new duty account with Dubai Customs.', requirements: 'Trade license, Emirates ID, Customs file number' }] }}
-        onBack={() => setShowRdaForm(false)}
-      />;
-    }
-    const cfg = PAGE_CONFIGS['rda'];
-    return (
-      <ServiceListingPage
-        {...cfg}
-        onBack={() => setActivePage(null)}
-        onNewRequest={() => setShowRdaForm(true)}
-      />
-    );
+    return <DutyAccountFlow onClose={() => setActivePage(null)} />;
   }
   if (activePage) {
     const cfg = PAGE_CONFIGS[activePage as 'glc'];
@@ -716,30 +698,10 @@ export default function SeaDetailModal({ onClose }: Props) {
                   <div className="flex flex-col gap-[8px]">
                     {col.items.map(item => {
                       const pageKey    = ITEM_PAGE_MAP[item];
-                      const HIGHLIGHTED = new Set([
-                        'Integrated Clearance',
-                        'Request Goods Landing Certificate',
-                        'Bill Payment',
-                        'Request Duty Account',
-                        'Request Customs Warehouse License',
-                        'DC - Service Request',
-                        'Cargo Inspection',
-                        'Cargo Reconciliation',
-                        'Cargo Tracking',
-                      ]);
                       const TALL_ITEMS = new Set([
                         'Request Goods Landing Certificate',
                       ]);
-                      // DPA/DMA priority services — pinned to the top and shown with a soft lighter tint
-                      const DPA_DMA = new Set([
-                        'DPA - Pre-qualification', 'DPA - PAN,PDN,PC', 'DPA - NOC Certificates',
-                        'DPA - ePermit', 'DPA - License Activity Approval',
-                        'DMA- Provider Registration (3)', 'DMA- NOC Certificates',
-                        'DMA - Operating Permit (2)',
-                        'DMA- Vessel Anchorage Permit in the Emirates water',
-                      ]);
-                      const isHighlighted = HIGHLIGHTED.has(item);
-                      const isDpaDma      = DPA_DMA.has(item) || DM_CARGO_SERVICES.includes(item) || DCAA_SIRA_SERVICES.includes(item);
+                      const isHighlighted = !!pageKey;
                       const isTall        = TALL_ITEMS.has(item);
                       return (
                         <button
@@ -748,8 +710,6 @@ export default function SeaDetailModal({ onClose }: Props) {
                           className={`text-left px-[10px] rounded-[4px] text-[16px] transition-colors ${
                             isHighlighted
                               ? 'bg-[#dce9ff] border border-[#1360d2] text-[#1360d2] hover:bg-[#c5d9ff] font-medium'
-                              : isDpaDma
-                              ? 'bg-[#eef1fc] border border-[#c7d0f2] text-[#3a4a86] hover:bg-[#e2e7fb] font-medium'
                               : 'bg-[#f7faff] text-[#0e1b3d] hover:bg-[#d6e6ff]'
                           }`}
                           style={{
